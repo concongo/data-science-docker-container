@@ -14,3 +14,14 @@ networkx
 theano
 requests
 beautifulsoup4
+plotly
+psycopg2
+pymongo
+pyzmq
+redis
+requests
+scipy
+scrapy
+statsmodels
+lxml
+urllib3

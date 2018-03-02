@@ -1,3 +1,5 @@
+#This docker file creates two VirtualEnv. 
+#One for Python2 and the other for Python3
 #!/usr/bin/env bash
 
 FROM ubuntu:16.04
@@ -12,7 +14,10 @@ ADD apt-packages.txt /tmp/apt-packages.txt
 RUN xargs -a /tmp/apt-packages.txt apt-get install -y
 
 RUN pip install virtualenv
-RUN /usr/local/bin/virtualenv /opt/ds --distribute
+
+# VirtualEnv Python2 Settings
+
+RUN /usr/local/bin/virtualenv /opt/ds2.7 --distribute
 
 ADD /requirements/ /tmp/requirements
 ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
@@ -20,7 +25,15 @@ ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/pre-requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/additional-reqs.txt
-RUN /opt/ds/bin/pip install -U jupyter
+
+# VirtualEnv Python3 Settings
+
+RUN /usr/local/bin/virtualenv /opt/ds3 --distribute --python=/usr/bin/python3
+
+ADD /requirements/ /tmp/requirements
+
+RUN /opt/ds/bin/pip install -r /tmp/requirements/pre-requirements.txt
+RUN /opt/ds/bin/pip install -r /tmp/requirements/requirements.txt
 
 RUN useradd --create-home --home-dir /home/ds --shell /bin/bash ds
 RUN chown -R ds /opt/ds
