@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-FROM dataquestio/ubuntu-base
+FROM ubuntu:16.04
 
 # Export env settings
 ENV TERM=xterm
