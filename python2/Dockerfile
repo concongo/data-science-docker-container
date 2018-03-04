@@ -16,9 +16,7 @@ ENV LANG en_US.UTF-8
 ENV LANGUAGE en_US:en  
 ENV LC_ALL en_US.UTF-8  
 
-RUN pip install pip -U
-RUN pip install virtualenv
-RUN /usr/local/bin/virtualenv /opt/ds --distribute
+RUN pip install pip -U && pip install virtualenv && /usr/local/bin/virtualenv /opt/ds --distribute
 
 ADD /requirements/ /tmp/requirements
 ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
@@ -34,14 +32,12 @@ RUN chown -R ds /opt/ds
 RUN adduser ds sudo
 
 ADD run_ipython.sh /home/ds
-RUN chmod +x /home/ds/run_ipython.sh
-RUN chown ds /home/ds/run_ipython.sh
+RUN chmod +x /home/ds/run_ipython.sh && chown ds /home/ds/run_ipython.sh
 
 ADD .bashrc.template /home/ds/.bashrc
 
 EXPOSE 8888
-RUN usermod -a -G sudo ds
-RUN echo "ds ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+RUN usermod -a -G sudo ds && echo "ds ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
 USER ds
 RUN mkdir -p /home/ds/notebooks
 ENV HOME=/home/ds
