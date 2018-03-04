@@ -11,6 +11,11 @@ RUN apt-get update -y && apt-get install build-essential -y
 ADD apt-packages.txt /tmp/apt-packages.txt
 RUN xargs -a /tmp/apt-packages.txt apt-get install -y
 
+RUN locale-gen en_US.UTF-8  
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
+
 RUN pip install pip -U
 RUN pip install virtualenv
 RUN /usr/local/bin/virtualenv /opt/ds --distribute
@@ -21,7 +26,7 @@ ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/pre-requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/additional-reqs.txt
-RUN export LC_ALL=C
+
 RUN /opt/ds/bin/pip install -U jupyter
 
 RUN useradd --create-home --home-dir /home/ds --shell /bin/bash ds
