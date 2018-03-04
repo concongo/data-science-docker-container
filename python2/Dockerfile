@@ -21,6 +21,7 @@ ADD python2/requirements.txt /tmp/requirements/additional-reqs.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/pre-requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/requirements.txt
 RUN /opt/ds/bin/pip install -r /tmp/requirements/additional-reqs.txt
+RUN export LC_ALL=C
 RUN /opt/ds/bin/pip install -U jupyter
 
 RUN useradd --create-home --home-dir /home/ds --shell /bin/bash ds
