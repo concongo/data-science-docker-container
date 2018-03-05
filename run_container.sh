@@ -5,5 +5,5 @@ FOLDER=$3
 PORT=$4
 TOKEN=$5
 
-CONTAINER=`docker run -$MODE -p $PORT:8888 -v $FOLDER:/home/ds/notebooks dataquestio/$NAME-starter -e JUPYTER_TOKEN='$TOKEN'
+CONTAINER=`docker run -$MODE -p $PORT:8888 -v $FOLDER:/home/ds/notebooks dataquestio/$NAME-starter -e JUPYTER_TOKEN=$TOKEN`
 echo $CONTAINER
