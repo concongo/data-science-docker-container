@@ -1,8 +1,9 @@
 #! /bin/bash
+MODE=$1
+NAME=$2
+FOLDER=$3
+PORT=$4
+TOKEN=$5
 
-NAME=$1
-FOLDER=$2
-PORT=$3
-
-CONTAINER=`docker run -d -p $PORT:8888 -v $FOLDER:/home/ds/notebooks dataquestio/$NAME-starter`
+CONTAINER=`docker run -$MODE -p $PORT:8888 -v $FOLDER:/home/ds/notebooks dataquestio/$NAME-starter -e JUPYTER_TOKEN='$TOKEN'
 echo $CONTAINER
