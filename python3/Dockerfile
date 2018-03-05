@@ -9,11 +9,12 @@ ENV LANG en_US.UTF-8
 RUN apt-get update -y && apt-get install build-essential -y
 
 ADD apt-packages.txt /tmp/apt-packages.txt
-RUN xargs -a /tmp/apt-packages.txt apt-get install -y
+RUN xargs -a /tmp/apt-packages.txt apt-get install -y && locale-gen en_US.UTF-8 
+ENV LANG en_US.UTF-8  
+ENV LANGUAGE en_US:en  
+ENV LC_ALL en_US.UTF-8  
 
-RUN pip install pip -U
-RUN pip install virtualenv
-RUN /usr/local/bin/virtualenv /opt/ds --distribute --python=/usr/bin/python3
+RUN pip install pip -U && pip install virtualenv && /usr/local/bin/virtualenv /opt/ds --distribute --python=/usr/bin/python3
 
 ADD /requirements/ /tmp/requirements
 
@@ -41,5 +42,6 @@ ENV SHELL=/bin/bash
 ENV USER=ds
 VOLUME /home/ds/notebooks
 WORKDIR /home/ds/notebooks
+RUN jupyter notebook --generate-config
 
 CMD ["/home/ds/run_ipython.sh"]

@@ -45,5 +45,6 @@ ENV SHELL=/bin/bash
 ENV USER=ds
 VOLUME /home/ds/notebooks
 WORKDIR /home/ds/notebooks
+RUN jupyter notebook --generate-config
 
 CMD ["/home/ds/run_ipython.sh"]
