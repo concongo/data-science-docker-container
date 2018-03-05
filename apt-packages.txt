@@ -31,4 +31,3 @@ ca-certificates
 curl
 wget
 nano
-locale
